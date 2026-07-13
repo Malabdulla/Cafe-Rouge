@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafe Rouge | Premium Bistro & Lounge, Adliya Bahrain</title>
+  <meta name="description" content="Welcome to Cafe Rouge in Adliya, Manama. Indulge in our exquisite French & International menu, premium grills, signature mocktails, specialty coffee, and luxury shisha lounge.">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header / Navigation -->
+  <header id="header" class="glass">
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <span class="rouge">Cafe</span><span class="gold">Rouge</span>
+      </a>
+      
+      <nav>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#" class="nav-link">Home</a></li>
+          <li><a href="#about" class="nav-link">Our Story</a></li>
+          <li><a href="#menu" class="nav-link">Menu</a></li>
+          <li><a href="#footer" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="nav-actions">
+        <button class="menu-toggle" id="menu-toggle-btn" aria-label="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h2 class="hero-subtitle">Bistro & Lounge • Adliya</h2>
+      <h1 class="hero-title">A Culinary Journey <span>In The Heart of Manama</span></h1>
+      <p class="hero-description">Experience an exquisite fusion of French bistro classics and international cuisine in an atmosphere designed to inspire. Fine dining, premium mocktails, and specialty lounge experiences await.</p>
+      <div class="hero-cta">
+        <a href="#menu" class="btn-primary">Explore Menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Welcome / About Section -->
+  <section class="welcome-section" id="about">
+    <div class="grid-2">
+      <div class="welcome-img-container">
+        <!-- Using a premium food item as the story image -->
+        <img src="main course/mashroom steak.jpeg" alt="Signature Mushroom Steak at Cafe Rouge" class="welcome-img" onerror="this.src='grills/mix grill.jpeg'">
+      </div>
+      <div class="welcome-text">
+        <h2>Welcome to Cafe Rouge</h2>
+        <p>Located in the vibrant dining district of Adliya (Villa 42, Road 2601), Cafe Rouge offers a sophisticated retreat from the bustling city. Our passion is to serve culinary creations that delight both the eye and the palate.</p>
+        <p>From our traditional Bahraini and English breakfasts to our sizzling steaks, artisan pastas, and crafted mocktails, every dish is prepared with fresh, premium ingredients by our master chefs.</p>
+        <div class="welcome-features">
+          <div class="feature-tag">
+            <span class="dot"></span>
+            <span>Premium Grills & Steaks</span>
+          </div>
+          <div class="feature-tag">
+            <span class="dot"></span>
+            <span>Artisan Pizza & Pasta</span>
+          </div>
+          <div class="feature-tag">
+            <span class="dot"></span>
+            <span>Specialty Coffee & Tea</span>
+          </div>
+          <div class="feature-tag">
+            <span class="dot"></span>
+            <span>Chilled Shisha Lounge</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section class="menu-section" id="menu">
+    <div class="section-header">
+      <span class="section-subtitle">Exquisite Selections</span>
+      <h2 class="section-title">Discover Our Menu</h2>
+    </div>
+    
+    <div class="menu-controls">
+      <!-- Search and Filter Row -->
+      <div class="search-filter-row">
+        <div class="search-box-container">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="menu-search-input" class="search-input" placeholder="Search dish, cocktail, dessert...">
+        </div>
+      </div>
+      
+      <!-- Category Tabs (Dynamically Populated) -->
+      <div class="categories-container">
+        <ul class="categories-list" id="categories-tabs-list">
+          <!-- Categories will be rendered by JS -->
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Menu Grid -->
+    <div class="menu-grid-container">
+      <div class="menu-grid" id="menu-grid-items">
+        <!-- Items will be rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <a href="#" class="logo">
+          <span class="rouge">Cafe</span><span class="gold">Rouge</span>
+        </a>
+        <p>Villa 42, Road 2601, Block 326, Adliya, Manama, Kingdom of Bahrain. An elite bistro experience serving global delicacies.</p>
+      </div>
+      
+      <div class="footer-hours">
+        <h4>Opening Hours</h4>
+        <p><strong>Open 24/7</strong><br>Every day, around the clock.</p>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#menu">Our Menu</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-contact">
+        <h4>Get In Touch</h4>
+        <p><i class="fa-solid fa-phone"></i> Phone: <a href="tel:+97317001717">+973 1700 1717</a></p>
+        <p><i class="fa-brands fa-whatsapp"></i> WhatsApp: <a href="https://wa.me/97317001717" target="_blank">+973 1700 1717</a></p>
+        <p><i class="fa-solid fa-location-dot"></i> Adliya, Manama, Bahrain</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Cafe Rouge. All Rights Reserved.</p>
+      <div class="social-links">
+        <a href="https://instagram.com/caferouge.bh" target="_blank" class="social-link" aria-label="Visit Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://wa.me/97317001717" target="_blank" class="social-link" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" class="social-link" aria-label="Visit TripAdvisor"><i class="fa-brands fa-tripadvisor"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Menu Data File -->
+  <script src="menu-data.js"></script>
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
