@@ -222,15 +222,15 @@ function handleImgError(img, category) {
 
 function openMembershipPortal(e) {
   if (e) e.preventDefault();
-  membershipDrawer.classList.add("open");
-  membershipOverlay.classList.add("show");
+  if (membershipDrawer) membershipDrawer.classList.add("open");
+  if (membershipOverlay) membershipOverlay.classList.add("show");
   document.body.style.overflow = "hidden";
   renderMembershipView();
 }
 
 function closeMembershipPortal() {
-  membershipDrawer.classList.remove("open");
-  membershipOverlay.classList.remove("show");
+  if (membershipDrawer) membershipDrawer.classList.remove("open");
+  if (membershipOverlay) membershipOverlay.classList.remove("show");
   document.body.style.overflow = "";
 }
 
@@ -245,7 +245,7 @@ async function fetchProfile() {
       const data = await res.json();
       userProfile = data.user;
       subscription = data.subscription;
-      if (membershipDrawer.classList.contains("open")) {
+      if (membershipDrawer && membershipDrawer.classList.contains("open")) {
         renderMembershipView();
       }
     } else {
