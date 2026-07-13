@@ -261,18 +261,15 @@ function renderMembershipView() {
   if (!portalContent) return;
 
   if (!userToken) {
-    // Show Login Screen
-    renderLoginView();
+    // Show Unified Register & Subscribe Screen by default
+    renderRegisterView();
   } else if (!userProfile) {
     // Loading State
     portalContent.innerHTML = `<div style="text-align: center; padding: 3rem;"><i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: var(--accent-gold);"></i></div>`;
   } else if (!subscription || subscription.status !== 'active') {
-    // Show Tier Selection or Checkout
-    if (selectedTier) {
-      renderCheckoutView();
-    } else {
-      renderTierSelectionView();
-    }
+    // Show Checkout directly for VIP membership (27.000 BHD)
+    selectedTier = { name: "VIP Member", price: 27.000 };
+    renderCheckoutView();
   } else {
     // Show VIP Member Dashboard
     renderDashboardView();
@@ -331,30 +328,39 @@ function renderLoginView() {
   });
 }
 
-// Render Registration Screen
+// Render Registration Screen (Unified Membership Sign-Up)
 function renderRegisterView() {
   portalContent.innerHTML = `
-    <h4 style="font-family: var(--font-serif); font-size: 1.8rem; text-align: center; margin-bottom: 2rem; color: var(--accent-gold);">Join VIP Club</h4>
+    <div style="text-align: center; margin-bottom: 1.5rem;">
+      <h4 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 0.3rem;">Join VIP Club</h4>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.8rem;">Unlock premium benefits and private lounge access.</p>
+      <div style="background: rgba(184, 134, 11, 0.1); border: 1px solid var(--accent-gold); padding: 0.6rem; border-radius: 6px; font-weight: 700; color: var(--accent-gold); display: inline-block;">
+        27.000 BHD <span style="font-size: 0.8rem; font-weight: 400; color: var(--text-muted);">/ month</span>
+      </div>
+    </div>
+    
     <form id="auth-register-form" style="display: flex; flex-direction: column; gap: 1rem;">
       <div class="form-group">
         <label class="form-label">Full Name</label>
         <input type="text" id="reg-name" class="form-input" required placeholder="Your Name">
       </div>
       <div class="form-group">
-        <label class="form-label">Email Address</label>
-        <input type="email" id="reg-email" class="form-input" required placeholder="email@example.com">
-      </div>
-      <div class="form-group">
         <label class="form-label">Phone Number</label>
         <input type="tel" id="reg-phone" class="form-input" required placeholder="+973 XXXXXXXX">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" id="reg-email" class="form-input" required placeholder="email@example.com">
       </div>
       <div class="form-group">
         <label class="form-label">Create Password</label>
         <input type="password" id="reg-password" class="form-input" required placeholder="Min 6 characters">
       </div>
-      <button type="submit" class="btn-primary" style="margin-top: 1rem;">Create Account</button>
+      <button type="submit" class="btn-primary" style="margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+        <i class="fa-solid fa-crown"></i> Subscribe
+      </button>
       <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
-        Already have an account? <a href="#" id="go-to-login" style="color: var(--accent-gold); text-decoration: none; font-weight: 600;">Sign in</a>
+        Already a VIP member? <a href="#" id="go-to-login" style="color: var(--accent-gold); text-decoration: none; font-weight: 600;">Sign in</a>
       </p>
     </form>
   `;
@@ -452,7 +458,7 @@ function renderTierSelectionView() {
 async function renderCheckoutView() {
   portalContent.innerHTML = `
     <button class="btn-secondary" id="back-to-tiers" style="padding: 0.5rem 1rem; font-size: 0.85rem; margin-bottom: 1.5rem;">
-      <i class="fa-solid fa-arrow-left"></i> Change Tier
+      <i class="fa-solid fa-arrow-left"></i> Cancel & Sign Out
     </button>
     
     <div style="margin-bottom: 2rem;">
@@ -472,8 +478,7 @@ async function renderCheckoutView() {
   `;
 
   document.getElementById("back-to-tiers").addEventListener("click", () => {
-    selectedTier = null;
-    renderMembershipView();
+    signOut();
   });
 
   // Fetch session config from backend
@@ -665,10 +670,12 @@ function loadEazyPaySdkScript(callback) {
     return;
   }
 
+  const merchantId = (sessionConfig && sessionConfig.merchant) || 'TEST';
+
   // Load test gateway form script
   script = document.createElement('script');
   script.id = scriptId;
-  script.src = `https://eazypay.test.gateway.mastercard.com/form/version/65/merchant/${process.env.EAZYPAY_MERCHANT_ID || 'TEST'}/session.js`;
+  script.src = `https://eazypay.test.gateway.mastercard.com/form/version/65/merchant/${merchantId}/session.js`;
   script.onload = callback;
   script.onerror = () => {
     alert("Failed to load payment gateway library. Please check connection.");

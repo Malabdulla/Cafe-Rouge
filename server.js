@@ -108,7 +108,7 @@ app.post('/api/payment/session', authenticateToken, async (req, res) => {
   if (isDemoMode) {
     // Simulator Mode: Return mock session id
     const mockSessionId = 'SESSION_SIM_' + Math.random().toString(36).substring(2, 10).toUpperCase();
-    return res.json({ session: { id: mockSessionId }, mode: 'simulator' });
+    return res.json({ session: { id: mockSessionId }, mode: 'simulator', merchant: 'TEST_YOUR_MERCHANT_ID' });
   }
 
   // Real Integration Mode
@@ -132,7 +132,7 @@ app.post('/api/payment/session', authenticateToken, async (req, res) => {
 
     const data = await response.json();
     if (!response.ok) throw new Error(data.error?.explanation || 'Failed to create session');
-    res.json(data);
+    res.json({ ...data, merchant: merchantId });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -140,10 +140,13 @@ app.post('/api/payment/session', authenticateToken, async (req, res) => {
 
 // Subscribe (Initial CIT Transaction & Card Storage)
 app.post('/api/payment/subscribe', authenticateToken, async (req, res) => {
-  const { sessionId, tier, price } = req.body;
-  if (!sessionId || !tier || !price) {
-    return res.status(400).json({ error: 'sessionId, tier, and price are required' });
+  const { sessionId } = req.body;
+  if (!sessionId) {
+    return res.status(400).json({ error: 'sessionId is required' });
   }
+
+  const tier = 'VIP Member';
+  const price = 27.00;
 
   const merchantId = process.env.EAZYPAY_MERCHANT_ID;
   const apiPassword = process.env.EAZYPAY_API_PASSWORD;
